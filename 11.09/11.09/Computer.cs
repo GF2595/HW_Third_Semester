@@ -12,16 +12,16 @@ namespace NetworkNamespace
     internal class Computer
     {
         private List<string> viruses;
-        private string OS;
+        private string os;
 
         /// <summary>
         /// Class constructor. Builds object with concrete OS
         /// </summary>
         /// <param name="_OS">Computer OS</param>
-        internal Computer(string _OS)
+        internal Computer(string OS)
         {
             viruses = new List<string>();
-            OS = _OS;
+            os = OS;
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace NetworkNamespace
         /// </summary>
         /// <param name="virus">Virus name</param>
         /// <returns>'True' if infected, 'false' otherwise</returns>
-        internal bool isInfectedByVirus(string virus)
+        internal bool IsInfectedByVirus(string virus)
         {
             return !(viruses.IndexOf(virus) == -1);
         }
@@ -38,7 +38,7 @@ namespace NetworkNamespace
         /// Adds new virus to list of viruses ifencting computer
         /// </summary>
         /// <param name="virus">Virus name</param>
-        internal void infect(string virus)
+        internal void Infect(string virus)
         {
             viruses.Add(virus);
         }
@@ -47,7 +47,7 @@ namespace NetworkNamespace
         /// Return list of virus infecting computer
         /// </summary>
         /// <returns>List of virus infecting computer</returns>
-        internal List<string> getVirusesList()
+        internal List<string> GetVirusesList()
         {
             return viruses;
         }
@@ -56,9 +56,9 @@ namespace NetworkNamespace
         /// Returns name of computer OS
         /// </summary>
         /// <returns>Name of computer OS</returns>
-        internal string getOS()
+        internal string GetOS()
         {
-            return OS;
+            return os;
         }
     }
 }
