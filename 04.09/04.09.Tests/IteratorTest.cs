@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using IteratorNamespace;
 using BinaryTreeNamespace;
 
 namespace IteratorNamespace.Tests
@@ -18,7 +17,7 @@ namespace IteratorNamespace.Tests
             tree.Add(7);
             tree.Add(8);
             
-            Iterator iterator = new BinaryTreeIterator(tree);
+            Iterator iterator = new BinaryTree.BinaryTreeIterator(tree);
 
             Assert.AreEqual(2, iterator.next());
             Assert.AreEqual(3, iterator.next());
@@ -30,13 +29,13 @@ namespace IteratorNamespace.Tests
         public void isEmptyTest()
         {
             BinaryTree tree = new BinaryTree();
-            Iterator iterator = new BinaryTreeIterator(tree);
+            Iterator iterator = new BinaryTree.BinaryTreeIterator(tree);
 
             Assert.AreEqual(true, iterator.isEmpty());
             
             tree = new BinaryTree();
             tree.Add(2);
-            iterator = new BinaryTreeIterator(tree);
+            iterator = new BinaryTree.BinaryTreeIterator(tree);
 
             Assert.AreEqual(false, iterator.isEmpty());
         }
@@ -49,11 +48,11 @@ namespace IteratorNamespace.Tests
             tree.Add(2);
             tree.Add(3);
 
-            Iterator iterator = new BinaryTreeIterator(tree);
+            Iterator iterator = new BinaryTree.BinaryTreeIterator(tree);
 
             int temp = iterator.next();
             iterator.next();
-            iterator.reset();
+            iterator.Reset();
 
             Assert.AreEqual(temp, iterator.next());
         }
@@ -66,10 +65,10 @@ namespace IteratorNamespace.Tests
             tree.Add(2);
             tree.Add(3);
 
-            Iterator iterator = new BinaryTreeIterator(tree);
+            Iterator iterator = new BinaryTree.BinaryTreeIterator(tree);
 
             iterator.remove();
-            iterator.reset();
+            iterator.Reset();
 
             Assert.AreEqual(3, iterator.next());
         }

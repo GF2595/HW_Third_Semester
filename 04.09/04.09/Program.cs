@@ -16,7 +16,7 @@ namespace HW04_09Namespace
 
             tree.Add(8);
 
-            BinaryTreeIterator iterator = new BinaryTreeIterator(tree);
+            Iterator iterator = new BinaryTree.BinaryTreeIterator(tree);
 
             while (!iterator.isEmpty())
             {

@@ -23,7 +23,7 @@ namespace IteratorNamespace
         /// <summary>
         /// Restarts the bypass of the tree
         /// </summary>
-        void reset();
+        void Reset();
 
         /// <summary>
         /// Deletes current element from the tree
