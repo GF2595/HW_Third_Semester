@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace IteratorNamespace
 {
-    public interface Iterator
+    public interface Iterator<T>
     {
         /// <summary>
         /// Returns next element of the tree
         /// </summary>
         /// <returns>Next element of the tree</returns>
-        int next();
+        T Next();
 
         /// <summary>
         /// Checks if tree bypass is finished
@@ -28,6 +28,6 @@ namespace IteratorNamespace
         /// <summary>
         /// Deletes current element from the tree
         /// </summary>
-        void remove();
+        void Remove();
     }
 }

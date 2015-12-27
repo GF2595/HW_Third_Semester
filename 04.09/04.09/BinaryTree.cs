@@ -4,14 +4,13 @@ using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IteratorNamespace;
 
 namespace BinaryTreeNamespace
 {
     /// <summary>
     /// Represents binary tree
     /// </summary>
-    public class BinaryTree : IEnumerable
+    public class BinaryTree<T> : IEnumerable where T : IComparable
     {
         internal TreeNode head = null;
 
@@ -27,14 +26,14 @@ namespace BinaryTreeNamespace
             internal TreeNode Left { get; set; }
             internal TreeNode Right { get; set; }
             internal TreeNode previous { get; set; }
-            private int value = 0;
+            private T value = default(T);
 
             /// <summary>
             /// Type constructor
             /// </summary>
             /// <param name="element">Value of node</param>
             /// <param name="previous">Element, which child current one is</param>
-            internal TreeNode(int element, TreeNode previous)
+            internal TreeNode(T element, TreeNode previous)
             {
                 this.value = element;
                 this.previous = previous;
@@ -47,17 +46,17 @@ namespace BinaryTreeNamespace
             /// <param name="previous">Element, child of which extendable one is (if existing, reveives null otherwise)</param>
             /// <param name="element">Element to add</param>
             /// <returns>Extended tree</returns>
-            internal static TreeNode AddElement(TreeNode tree, TreeNode previous, int element)
+            internal static TreeNode AddElement(TreeNode tree, TreeNode previous, T element)
             {
                 if (tree == null)
                 {
                     tree = new TreeNode(element, previous);
                 }
-                else if (element < tree.value)
+                else if (element.CompareTo(tree.value) < 0)
                 {
                     tree.Left = AddElement(tree.Left, tree, element);
                 }
-                else if (element > tree.value)
+                else if (element.CompareTo(tree.value) > 0)
                 {
                     tree.Right = AddElement(tree.Right, tree, element);
                 }
@@ -71,17 +70,17 @@ namespace BinaryTreeNamespace
             /// <param name="tree">Tree root</param>
             /// <param name="element">Element to find</param>
             /// <returns>'True' if element is found in tree, 'false' otherwise</returns>
-            internal static bool FindElement(TreeNode tree, int element)
+            internal static bool FindElement(TreeNode tree, T element)
             {
                 if (tree == null)
                 {
                     return false;
                 }
-                else if (tree.value > element)
+                else if (tree.value.CompareTo(element) > 0)
                 {
                     return FindElement(tree.Left, element);
                 }
-                else if (tree.value < element)
+                else if (tree.value.CompareTo(element) < 0)
                 {
                     return FindElement(tree.Right, element);
                 }
@@ -97,13 +96,13 @@ namespace BinaryTreeNamespace
             /// <param name="tree">Root of the tree, from which element should be deleted</param>
             /// <param name="element">Element to be deleted</param>
             /// <returns>Root of tree without <paramref name="element"/></returns>
-            internal static TreeNode DeleteElement(TreeNode tree, int element)
+            internal static TreeNode DeleteElement(TreeNode tree, T element)
             {
-                if (tree.value > element)
+                if (tree.value.CompareTo(element) > 0)
                 {
                     tree.Left = DeleteElement(tree.Left, element);
                 }
-                else if (tree.value < element)
+                else if (tree.value.CompareTo(element) < 0)
                 {
                     tree.Right = DeleteElement(tree.Right, element);
                 }
@@ -156,7 +155,7 @@ namespace BinaryTreeNamespace
             /// Returns node value
             /// </summary>
             /// <returns>Node value</returns>
-            public int GetValue()
+            public T GetValue()
             {
                 return this.value;
             }
@@ -166,7 +165,7 @@ namespace BinaryTreeNamespace
         /// Adds <paramref name="element"/> to the tree
         /// </summary>
         /// <param name="element">Element to be added</param>
-        public void Add(int element)
+        public void Add(T element)
         {
             this.head = TreeNode.AddElement(this.head, null, element);
         }
@@ -176,7 +175,7 @@ namespace BinaryTreeNamespace
         /// </summary>
         /// <param name="element">Element to be found</param>
         /// <returns>'True' if element is in tree, 'false' otherwise</returns>
-        public bool Find(int element)
+        public bool Find(T element)
         {
             return TreeNode.FindElement(this.head, element);
         }
@@ -185,33 +184,48 @@ namespace BinaryTreeNamespace
         /// Deletes <paramref name="element"/> from the tree
         /// </summary>
         /// <param name="element">Element to be deleted</param>
-        public void Delete(int element)
+        public void Delete(T element)
         {
             this.head = TreeNode.DeleteElement(this.head, element);
         }
 
-        public IEnumerator GetEnumerator()
+        IEnumerator IEnumerable.GetEnumerator()
         {
-            return new BinaryTreeIterator(this);
+            return (IEnumerator) new BinaryTreeIterator(this);
         }
 
         /// <summary>
         /// Binary tree iterator realisation
         /// </summary>
-        public class BinaryTreeIterator : Iterator, IEnumerator
+        public class BinaryTreeIterator: IEnumerator, IteratorNamespace.Iterator<T>
         {
-            private BinaryTree tree = null;
-            private BinaryTree.TreeNode currentNode = null;
+            private List<T> nodesList = new List<T>();
+            private int index = -1;
 
+            /// <summary>
+            /// Adds values to nodesList
+            /// </summary>
+            private void FillNodeList(TreeNode currentNode)
+            {
+                if (currentNode.Left != null)
+                {
+                    FillNodeList(currentNode.Left);
+                }
+
+                nodesList.Add(currentNode.GetValue());
+
+                if (currentNode.Right != null)
+                {
+                    FillNodeList(currentNode.Right);
+                }
+            }
             /// <summary>
             /// Type constructor
             /// </summary>
-            /// <param name="_tree">tree, for which iterator is being constructed</param>
-            public BinaryTreeIterator(BinaryTree _tree)
+            /// <param name="_tree">Tree, for which iterator is being constructed</param>
+            public BinaryTreeIterator(BinaryTree<T> tree)
             {
-                this.tree = _tree;
-
-                this.currentNode = FindLowestLeftNode(this.tree.head);
+                FillNodeList(tree.head);
             }
 
             /// <summary>
@@ -219,9 +233,9 @@ namespace BinaryTreeNamespace
             /// </summary>
             /// <param name="head">Tree root</param>
             /// <returns>Lowest left node of the tree</returns>
-            private static BinaryTree.TreeNode FindLowestLeftNode(BinaryTree.TreeNode head)
+            private static BinaryTree<T>.TreeNode FindLowestLeftNode(BinaryTree<T>.TreeNode head)
             {
-                BinaryTree.TreeNode temp = head;
+                BinaryTree<T>.TreeNode temp = head;
 
                 if (temp != null)
                 {
@@ -235,88 +249,20 @@ namespace BinaryTreeNamespace
             }
 
             /// <summary>
-            /// Find next node of the tree
+            /// Moves to the next value in tree
             /// </summary>
-            /// <param name="current"></param>
-            /// <returns></returns>
-            private static BinaryTree.TreeNode FindNext(BinaryTree.TreeNode current)
-            {
-                BinaryTree.TreeNode newCurrentNode = null;
-
-                if (current != null)
-                {
-                    if (current.Right != null)
-                    {
-                        return FindLowestLeftNode(current.Right);
-                    }
-                    else
-                    {
-                        if (current.previous != null)
-                        {
-                            if (current == current.previous.Left)
-                            {
-                                return current.previous;
-                            }
-                            else
-                            {
-                                bool finished = false;
-                                newCurrentNode = current;
-
-                                while (!finished)
-                                {
-                                    if (newCurrentNode.previous == null)
-                                    {
-                                        finished = true;
-                                    }
-                                    else if (newCurrentNode == newCurrentNode.previous.Left)
-                                    {
-                                        finished = true;
-                                    }
-
-                                    newCurrentNode = newCurrentNode.previous;
-                                }
-
-
-                            }
-                        }
-                    }
-                }
-
-                return newCurrentNode;
-            }
-
-            /// <summary>
-            /// Returns next element of the tree
-            /// </summary>
-            /// <returns>Next element of the tree</returns>
-            public int next()
-            {
-                int value = currentNode.GetValue();
-
-                this.currentNode = FindNext(this.currentNode);
-
-                return value;
-            }
-
+            /// <returns>'True' if there is no more element in tree, 'false' otherwise</returns>
             public bool MoveNext()
             {
-                if (!this.isEmpty())
-                {
-                    this.currentNode = FindNext(this.currentNode);
-
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                index++;
+                return index < nodesList.Count;
             }
 
             public object Current
             {
                 get
                 {
-                    return this.currentNode.GetValue();
+                    return nodesList[index];
                 }
             }
 
@@ -326,7 +272,7 @@ namespace BinaryTreeNamespace
             /// <returns>'True' if previous element was the last one, 'false' otherwise</returns>
             public bool isEmpty()
             {
-                return this.currentNode == null;
+                return index == nodesList.Count();
             }
 
             /// <summary>
@@ -334,24 +280,30 @@ namespace BinaryTreeNamespace
             /// </summary>
             public void Reset()
             {
-                this.currentNode = FindLowestLeftNode(this.tree.head);
+                index = -1;
+            }
+
+            public T Next()
+            {
+                index++;
+
+                if (index < nodesList.Count())
+                {
+                    return nodesList[index];
+                }
+                else
+                {
+                    throw new IndexOutOfRangeException();
+                }
             }
 
             /// <summary>
             /// Deletes current element from the tree
             /// </summary>
-            public void remove()
+            public void Remove()
             {
-                int temp = this.currentNode.GetValue();
-                this.currentNode = FindNext(this.currentNode);
-
-                this.tree.Delete(temp);
-            }
-
-            public void Dispose()
-            {
-                this.tree = null;
-                this.currentNode = null;
+                T currentValue = nodesList[index];
+                nodesList.Remove(currentValue);
             }
         }
     }
