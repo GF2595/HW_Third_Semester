@@ -14,11 +14,19 @@ namespace _02._09
         private Pen pen = new Pen(Color.Black);
         private History history = new History();
 
+        /// <summary>
+        /// Class constructor
+        /// </summary>
         public MyGraphic()
         {
             history.AddList(new List<Line>());
         }
         
+        /// <summary>
+        /// Adds new line
+        /// </summary>
+        /// <param name="newStartPoint">New line start point</param>
+        /// <param name="newEndPoint">New line end point</param>
         public void AddNewLine(PointF newStartPoint, PointF newEndPoint)
         {
             Line newLine = new Line(newStartPoint, newEndPoint);
@@ -28,6 +36,12 @@ namespace _02._09
             history.AddList(linesToHistory);
         }
 
+        /// <summary>
+        /// Checks if mouse clicked on line end
+        /// </summary>
+        /// <param name="X">Click x coordinate</param>
+        /// <param name="Y">Click y coordinate</param>
+        /// <returns>'True' if clicked on line end, 'false' otherwise</returns>
         public bool IsEndCatched(ref float X, ref float Y)
         {
             const float eps = 3F;
@@ -54,6 +68,12 @@ namespace _02._09
             return false;
         }
 
+        /// <summary>
+        /// Checks if deleting successful
+        /// </summary>
+        /// <param name="X">Click x coordinate</param>
+        /// <param name="Y">Click y coordinate</param>
+        /// <returns>'True' if line deleted succesfully, 'false' otherwise</returns>
         public bool IsLineDeleted(float X, float Y)
         {
             const float eps = 0.25F;
@@ -74,11 +94,21 @@ namespace _02._09
             return false;
         }
 
+        /// <summary>
+        /// Draws new line
+        /// </summary>
+        /// <param name="e">PaintEventArgs</param>
+        /// <param name="startPoint">Line start point</param>
+        /// <param name="endPoint">Line end point</param>
         public void DrawNewLine(ref PaintEventArgs e, PointF startPoint, PointF endPoint)
         {
             e.Graphics.DrawLine(pen, startPoint, endPoint);
         }
 
+        /// <summary>
+        /// Redraws all lines
+        /// </summary>
+        /// <param name="e">PaintEventArgs</param>
         public void ReDrawAllLines(ref PaintEventArgs e)
         {
             if (lines != null)
@@ -90,11 +120,17 @@ namespace _02._09
             }
         }
 
+        /// <summary>
+        /// Performs undo
+        /// </summary>
         public void Undo()
         {
             history.Undo(ref lines);
         }
 
+        /// <summary>
+        /// Performs redo
+        /// </summary>
         public void Redo()
         {
             history.Redo(ref lines);

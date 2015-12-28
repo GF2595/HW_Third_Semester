@@ -14,6 +14,10 @@ namespace _02._09
         private List<List<Line>> undoList = new List<List<Line>>();
         private List<List<Line>> redoList = new List<List<Line>>();
 
+        /// <summary>
+        /// Performs undo by switching lines between lists
+        /// </summary>
+        /// <param name="lines">Lines list</param>
         public void Undo(ref List<Line> lines)
         {
             if (undoList.Count > 1)
@@ -26,6 +30,10 @@ namespace _02._09
             }
         }
 
+        /// <summary>
+        /// Performs redo by switching lines between lists
+        /// </summary>
+        /// <param name="lines">Lines list</param>
         public void Redo(ref List<Line> lines)
         {
             if (redoList.Count != 0)
@@ -38,7 +46,10 @@ namespace _02._09
             }
         }
 
-
+        /// <summary>
+        /// Adds new line list to undo and cleans redo
+        /// </summary>
+        /// <param name="lines">Lines list</param>
         public void AddList(List<Line> lines)
         {
             undoList.Add(lines);
