@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6C7FD323-2A01-439A-8239-21650A106383}</ProjectGuid>
+    <ProjectGuid>{5B40FFBC-032A-4D75-ADC0-73A41C2FC263}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>_11._09</RootNamespace>
-    <AssemblyName>11.09</AssemblyName>
+    <RootNamespace>_04._09</RootNamespace>
+    <AssemblyName>04.09</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -41,23 +41,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD:11.09/11.09/11.09.csproj
-    <Compile Include="Computer.cs" />
-    <Compile Include="FileParser.cs" />
-    <Compile Include="Network.cs" />
-=======
     <Compile Include="BinaryTree.cs" />
     <Compile Include="Iterator.cs" />
->>>>>>> remotes/origin/master:04.09/04.09/04.09.csproj
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Virus.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="testConfiguration.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

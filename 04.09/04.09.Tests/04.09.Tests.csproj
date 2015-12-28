@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E28F1638-B982-45E1-BDD7-52F1EAF11AF9}</ProjectGuid>
+    <ProjectGuid>{E3453F5F-B20D-449A-8887-633BF575852F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>_11._09.Tests</RootNamespace>
-    <AssemblyName>11.09.Tests</AssemblyName>
+    <RootNamespace>_04._09.Tests</RootNamespace>
+    <AssemblyName>04.09.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -50,22 +50,14 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-<<<<<<< HEAD:11.09/11.09.Tests/11.09.Tests.csproj
-    <Compile Include="NetworkTest.cs" />
-=======
     <Compile Include="IteratorTest.cs" />
->>>>>>> remotes/origin/master:04.09/04.09.Tests/04.09.Tests.csproj
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\11.09\11.09.csproj">
-      <Project>{6c7fd323-2a01-439a-8239-21650a106383}</Project>
-      <Name>11.09</Name>
+    <ProjectReference Include="..\04.09\04.09.csproj">
+      <Project>{5b40ffbc-032a-4d75-adc0-73a41c2fc263}</Project>
+      <Name>04.09</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="testConfig1.txt" />
-    <Content Include="testConfig2.txt" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
