@@ -61,5 +61,42 @@ namespace HW11_09Namespace.Tests
             Assert.AreEqual("virus 1", statistics[0]);
             Assert.AreEqual("virus2 2", statistics[1]);
         }
+
+        [TestMethod]
+        public void StepVirusStatisticsTest()
+        {
+            Network network = new Network("..\\..\\testConfig1.txt");
+
+            List<string> statistics = network.VirusesStatistics();
+
+            foreach (string str in statistics)
+            {
+                Assert.AreEqual("virus 1", str);
+            }
+
+            network.Step();
+
+            statistics = network.VirusesStatistics();
+            foreach (string str in statistics)
+            {
+                Assert.AreEqual("virus 1 2", str);
+            }
+
+            network.Step();
+
+            statistics = network.VirusesStatistics();
+            foreach (string str in statistics)
+            {
+                Assert.AreEqual("virus 1 2 3", str);
+            }
+
+            network.Step();
+
+            statistics = network.VirusesStatistics();
+            foreach (string str in statistics)
+            {
+                Assert.AreEqual("virus 1 2 3 4", str);
+            }
+        }
     }
 }

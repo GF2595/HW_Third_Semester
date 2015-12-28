@@ -17,6 +17,7 @@ namespace NetworkNamespace
         private List<Virus> viruses;
         private int ticksAmount = 0;
         private Random randomizer;
+        private bool systemStable = false;
 
         /// <summary>
         /// Class constructor. Constructs network using information from file
@@ -50,13 +51,14 @@ namespace NetworkNamespace
             });
             Console.WriteLine();
 
-            this._Run();
+            while (!this.Step());
+            Console.WriteLine("System Stabilized");
         }
 
         /// <summary>
         /// Launches one network working tick, prints network state, prints "System stabilized" if system if stable, launches new tick otherwise
         /// </summary>
-        private void _Run()
+        public bool Step()
         {
             bool systemStable = this.Tick();
             ticksAmount++;
@@ -76,14 +78,7 @@ namespace NetworkNamespace
             });
             Console.WriteLine();
 
-            if (systemStable)
-            {
-                Console.WriteLine("System stabilized");
-            }
-            else
-            {
-                this.Run();
-            }
+            return systemStable;
         }
 
         /// <summary>
