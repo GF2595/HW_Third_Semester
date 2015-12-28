@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace _02._09
 {
+    /// <summary>
+    /// Represents line
+    /// </summary>
     public class Line
     {
         public PointF StartPoint { get; set; }

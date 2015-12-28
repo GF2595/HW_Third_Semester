@@ -77,10 +77,12 @@ namespace _02._09
         public bool IsLineDeleted(float X, float Y)
         {
             const float eps = 0.25F;
+
             foreach (var line in lines)
             {
                 double lengthToStart = Math.Sqrt(Math.Pow(line.StartPoint.X - X, 2) + Math.Pow(line.StartPoint.Y - Y, 2));
                 double lengthToEnd = Math.Sqrt(Math.Pow(line.EndPoint.X - X, 2) + Math.Pow(line.EndPoint.Y - Y, 2));
+
                 if (Math.Abs(line.Length() - lengthToStart - lengthToEnd) < eps)
                 {
                     lines.Remove(line);
@@ -109,7 +111,7 @@ namespace _02._09
         /// Redraws all lines
         /// </summary>
         /// <param name="e">PaintEventArgs</param>
-        public void ReDrawAllLines(ref PaintEventArgs e)
+        public void RedrawAllLines(ref PaintEventArgs e)
         {
             if (lines != null)
             {

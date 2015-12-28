@@ -18,10 +18,10 @@ namespace _02._09
         private bool isMoving = false;
         private bool isDeleting = false;
         private bool isEndCatched = false;
-        private float X = 0;
-        private float Y = 0;
-        private float X1 = 0;
-        private float Y1 = 0;
+        private float x = 0;
+        private float y = 0;
+        private float x1 = 0;
+        private float y1 = 0;
 
         public GraphicEditor()
         {
@@ -84,12 +84,12 @@ namespace _02._09
         private void PictureBoxMouseDown(object sender, MouseEventArgs e)
         {
             isPressed = true;
-            X = e.X;
-            Y = e.Y;
+            x = e.X;
+            y = e.Y;
 
             if (isMoving)
             {
-                if (myGraphic.IsEndCatched(ref X, ref Y))
+                if (myGraphic.IsEndCatched(ref x, ref y))
                 {
                     isEndCatched = true;
                 }
@@ -102,8 +102,8 @@ namespace _02._09
             {
                 if (isPressed)
                 {
-                    X1 = e.X;
-                    Y1 = e.Y;
+                    x1 = e.X;
+                    y1 = e.Y;
                     pictureBox.Invalidate();
                 }
             }
@@ -111,8 +111,8 @@ namespace _02._09
             {
                 if (isPressed && isEndCatched)
                 {
-                    X1 = e.X;
-                    Y1 = e.Y;
+                    x1 = e.X;
+                    y1 = e.Y;
                     pictureBox.Invalidate();
                 }
             }
@@ -121,16 +121,17 @@ namespace _02._09
         private void PictureBoxMouseUp(object sender, MouseEventArgs e)
         {
             isPressed = false;
+
             if (isDrawing || (isMoving && isEndCatched))
             {
                 isEndCatched = false;
-                PointF newStartPoint = new PointF(X, Y);
-                PointF newEndPoint = new PointF(X1, Y1);
+                PointF newStartPoint = new PointF(x, y);
+                PointF newEndPoint = new PointF(x1, y1);
                 myGraphic.AddNewLine(newStartPoint, newEndPoint);
             }
             else if (isDeleting)
             {
-                if (myGraphic.IsLineDeleted(X, Y))
+                if (myGraphic.IsLineDeleted(x, y))
                 {
                     pictureBox.Invalidate();
                 }
@@ -139,13 +140,12 @@ namespace _02._09
 
         private void PictureBoxPaint(object sender, PaintEventArgs e)
         {
-
             if (isDrawing || (isMoving && isEndCatched))
             {
-                myGraphic.DrawNewLine(ref e, new PointF(X, Y), new PointF(X1, Y1));
+                myGraphic.DrawNewLine(ref e, new PointF(x, y), new PointF(x1, y1));
             }
 
-            myGraphic.ReDrawAllLines(ref e);
+            myGraphic.RedrawAllLines(ref e);
         }
     }
 }
