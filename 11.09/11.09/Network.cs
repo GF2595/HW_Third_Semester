@@ -16,6 +16,7 @@ namespace NetworkNamespace
         private List<string> operatingSystems;
         private List<Virus> viruses;
         private int ticksAmount = 0;
+        private Random randomizer;
 
         /// <summary>
         /// Class constructor. Constructs network using information from file
@@ -24,6 +25,8 @@ namespace NetworkNamespace
         public Network(string configurationFilePath)
         {
             FileParser.ParseFile(configurationFilePath, out networkConfiguration, out computers, out operatingSystems, out viruses);
+
+            randomizer = new Random();
         }
 
         /// <summary>
@@ -137,8 +140,6 @@ namespace NetworkNamespace
             {
                 for (int j = 0; j < computers.Count(); j++)
                 {
-                    Random rand = new Random();
-
                     if (networkConfiguration[i][j])
                     {
                         computers[i].GetVirusesList().ForEach(delegate(string virusName)
@@ -151,7 +152,7 @@ namespace NetworkNamespace
                                 {
                                     systemStable = false;
 
-                                    int randomNumber = rand.Next(100);
+                                    int randomNumber = randomizer.Next(100);
                                     if (randomNumber < infectioningProbability)
                                     {
                                         computers[j].Infect(virusName);
