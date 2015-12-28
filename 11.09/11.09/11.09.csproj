@@ -41,14 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD:11.09/11.09/11.09.csproj
     <Compile Include="Computer.cs" />
     <Compile Include="FileParser.cs" />
     <Compile Include="Network.cs" />
-=======
-    <Compile Include="BinaryTree.cs" />
-    <Compile Include="Iterator.cs" />
->>>>>>> remotes/origin/master:04.09/04.09/04.09.csproj
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Virus.cs" />

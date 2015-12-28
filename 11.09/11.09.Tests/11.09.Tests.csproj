@@ -50,11 +50,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-<<<<<<< HEAD:11.09/11.09.Tests/11.09.Tests.csproj
     <Compile Include="NetworkTest.cs" />
-=======
-    <Compile Include="IteratorTest.cs" />
->>>>>>> remotes/origin/master:04.09/04.09.Tests/04.09.Tests.csproj
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
